@@ -10,7 +10,7 @@ import UIKit
 import MapKit
 
 class ViewController: UIViewController, CLLocationManagerDelegate {
-
+    
     
     var manager: CLLocationManager!
     
@@ -40,7 +40,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         map.addGestureRecognizer(uilpgr)
         
     }
-
+    
     
     func action(gestureRecognizer:UIGestureRecognizer) {
         
@@ -83,27 +83,29 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
                     }
                     
                 }
-
-            
+                
+                
                 if self.title == "" {
                     
                     self.title = "Added \(NSDate())"
-                
+                    
                 }
                 
-            var annotation =  MKPointAnnotation()
-            
-            annotation.coordinate = newCoordinate
-            
-            annotation.title = title
+                places.append(["name":title,"lat":"\(newCoordinate.latitude)", "lon":"\(newCoordinate.longitude)"])
                 
-            self.map.addAnnotation(annotation)
-
+                var annotation =  MKPointAnnotation()
+                
+                annotation.coordinate = newCoordinate
+                
+                annotation.title = title
+                
+                self.map.addAnnotation(annotation)
+                
                 
                 
             })
             
-    
+            
         }
         
         
@@ -138,7 +140,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
-
+    
+    
 }
 
