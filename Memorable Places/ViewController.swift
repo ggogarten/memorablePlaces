@@ -30,8 +30,43 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         manager = CLLocationManager()
         manager.delegate = self
         manager.desiredAccuracy = kCLLocationAccuracyBest
-        manager.requestWhenInUseAuthorization()
-        manager.startUpdatingLocation()
+        
+        if activePlace == -1 {
+          
+            manager.requestWhenInUseAuthorization()
+            manager.startUpdatingLocation()
+            
+        } else {
+            
+            let latitude =  NSString(string: places[activePlace]["lat"]!).doubleValue
+            
+            let longitude =  NSString(string: places[activePlace]["lon"]!).doubleValue
+            
+            var coordinate = CLLocationCoordinate2DMake(latitude, longitude)
+            
+            var latDelta:CLLocationDegrees = 0.01
+            
+            var lonDelta:CLLocationDegrees = 0.01
+            
+            var span:MKCoordinateSpan = MKCoordinateSpanMake(latDelta, lonDelta)
+            
+            var region:MKCoordinateRegion = MKCoordinateRegionMake(coordinate, span)
+            
+            self.map.setRegion(region, animated: true)
+            
+            var annotation =  MKPointAnnotation()
+            
+            annotation.coordinate = coordinate
+            
+            annotation.title = places[activePlace]["name"]
+            
+            self.map.addAnnotation(annotation)
+
+            
+        }
+        
+        
+     
         
         var uilpgr = UILongPressGestureRecognizer(target: self, action: "action:")
         
